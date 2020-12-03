@@ -33,6 +33,7 @@ public class Block {
         }
         else{
           Nonce++;
+         if(Nonce == 10000000) break;
         }
       }while (workProven = false);
       return minedHash;
