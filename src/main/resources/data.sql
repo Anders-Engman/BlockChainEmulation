@@ -1,13 +1,12 @@
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS blocks;
 
-CREATE TABLE users (
-  id INT PRIMARY KEY,
-  FIRST_NAME VARCHAR(250) NOT NULL,
-  LAST_NAME VARCHAR(250) NOT NULL,
-  EMAIL VARCHAR(250) NOT NULL
+CREATE TABLE blocks (
+  id INT AUTO_INCREMENT,
+  hashData VARCHAR(255) NOT NULL,
+  parentHash VARCHAR(255) NOT NULL,
+  captionData VARCHAR(255),
+  PRIMARY KEY (id)
 );
 
-INSERT INTO users (ID, FIRST_NAME, LAST_NAME, EMAIL) VALUES
-  (1, 'first', 'last 1', 'abc1@gmail.com'),
-  (2, 'first', 'last 2', 'abc2@gmail.com'),
-  (3, 'first', 'last 3', 'abc3@gmail.com');
+INSERT INTO blocks (ID, hashData, parentHash, captionData) VALUES
+  (1, 'testHash', '0000', 'test caption')

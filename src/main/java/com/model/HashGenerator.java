@@ -1,6 +1,7 @@
 package com.model;
 
-import java.security.MessageDigest; 
+import java.security.MessageDigest;
+ 
 public class HashGenerator {
 
 	public String generateHash(String input) 
