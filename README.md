@@ -15,11 +15,11 @@
 git clone https://github.com/bbachi/vuejs-java-example.git
 
 // Run Vue on port 3000
-cd /src/main/java/com/ui
+cd /src/main/java/client
 npm install
 npm run serve
 
 // Run Java Code on 8080
 mvn clean install
-java -jar target/target/blockchainemulator-0.0.1-SNAPSHOT.jar
+java -jar target/blockchainemulator-0.0.1-SNAPSHOT.jar
 ```
