@@ -1,4 +1,5 @@
-package com.model;
+//package model;
+import java.util.Date;
 
 public class Block { 
  
@@ -7,9 +8,10 @@ public class Block {
     private String data; 
     private int Nonce;
     private boolean workProven;
-    private HashGenerator hashGenerator;
-    private int leadingZeros = 0;
-    private String complexity = "0";
+    //private HashGenerator hashGenerator;
+    private int leadingZeros = 2;
+    private String complexity = "000";
+    private long timeStamp;
   
     // Constructor for the block 
     public Block(String data, 
@@ -18,6 +20,7 @@ public class Block {
         this.data = data; 
         this.parentHash = parentHash; 
         this.Nonce = 0; 
+        this.timeStamp = new Date().getTime(); 
         this.hash = calculateHash(); 
     }
 
@@ -39,7 +42,7 @@ public class Block {
   
     // Function to calculate the hash 
     public String calculateHash(){
-      String calculatedHash = hashGenerator.generateHash(parentHash + Integer.toString(Nonce) + data);
+      String calculatedHash = hashGenerator.generateHash(parentHash + timeStamp + Integer.toString(Nonce) + data);
       return calculatedHash;
      }
     //Function to mine the hash for proof of work 
