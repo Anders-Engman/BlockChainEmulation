@@ -1,4 +1,4 @@
-package com.model;
+package model;
 import java.util.Date;
 
 public class Block { 
@@ -8,8 +8,7 @@ public class Block {
     private String data; 
     private int Nonce;
     private boolean workProven;
-    private HashGenerator hashGenerator;
-    private int leadingZeros = 2;
+    private int leadingZeros = 3;
     private String complexity = "000";
     private long timeStamp;
   
@@ -39,6 +38,29 @@ public class Block {
     public String getParentHash() {
       return this.parentHash;
     }
+
+    public void setZeroes(int leadingZeroes){
+      this.leadingZeros = leadingZeroes;
+    }
+
+    public int getZeroes(){
+      return leadingZeros;
+    }
+
+    public boolean getWorkProven(){
+      return workProven;
+    }
+
+    public void setComplexity(){
+      String temp = "";
+      for(int i=0;i<leadingZeros;i++){
+        temp +="0";
+      }
+      complexity = temp;
+    }
+    public String getComplexity(){
+      return complexity;
+    }
   
     // Function to calculate the hash 
     public String calculateHash(){
@@ -48,20 +70,16 @@ public class Block {
     //Function to mine the hash for proof of work 
     public String mineHash() 
     { 
-      String minedHash;  
-      do{ 
+      Nonce = 0;
+      workProven = false;
+      String minedHash = this.calculateHash();  
+      while(!minedHash.substring(0,leadingZeros).equals(complexity)){
         minedHash = calculateHash();
-
-        if (minedHash.substring(0,leadingZeros).equals(complexity)){
+        Nonce++;
+      }
+      if (minedHash.substring(0,leadingZeros).equals(complexity)){
           workProven = true;
-        }
-
-        else {
-          Nonce++;
-          if(Nonce == 10000000) break;
-        }
-
-      } while (workProven == false);
+      }
 
       return minedHash;
     } 
