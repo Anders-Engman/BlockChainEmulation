@@ -15,7 +15,7 @@
 git clone https://github.com/bbachi/vuejs-java-example.git
 
 // Run Vue on port 3000
-cd /src/main/java/client
+cd /src/main/client
 npm install
 npm run serve
 
