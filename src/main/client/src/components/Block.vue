@@ -8,13 +8,20 @@
                 v-model="data"
                 v-on:input="updateBlock()"
               ></b-form-input>
-            </b-input-group>
-                
+            </b-input-group>  
       </b-card-text>
-      <b-card-text> PREVIOUS HASH {{ blockData.previousHash }} </b-card-text>
-      <b-card-text> HASH {{ blockData.hash }} </b-card-text>
+      <b-card-text>
+        <b-input-group prepend="PREVIOUS HASH">
+          <b-form-input :state="null" readonly class="back" :value="blockData.previousHash"></b-form-input>
+        </b-input-group>
+      </b-card-text>
+      <b-card-text>
+        <b-input-group prepend="HASH">
+          <b-form-input :state="blockData.workProven ? true : false" readonly class="back" :value="blockData.hash"></b-form-input>
+        </b-input-group> 
+      </b-card-text> 
       <h4><b-badge>{{ blockData.nonce }}</b-badge></h4>
-      <b-button variant="info" @click="mineBlock()">Mine</b-button>
+      <b-button variant="info" @click="mineBlock()">Mine</b-button> 
     </b-card>
   </div>
 </template>

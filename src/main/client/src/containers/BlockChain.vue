@@ -4,8 +4,6 @@
       <Block :blockName="index" :blockData="block"/>
     </div>
     <AddBlock/>
-    
-
   </div>
 </template>
 

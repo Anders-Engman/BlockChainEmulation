@@ -65,6 +65,7 @@ export default new Vuex.Store({
           previousHash: "0",
           hash: "mineBlock",
           nonce: 0,
+          workProven: true,
         },
       ]);
     },
@@ -80,6 +81,7 @@ export default new Vuex.Store({
           previousHash: "0",
           hash: "updateBlock",
           nonce: 0,
+          workProven: false,
         },
       ]);
     },
