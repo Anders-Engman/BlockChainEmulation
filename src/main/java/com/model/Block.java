@@ -1,4 +1,4 @@
-//package model;
+package com.model;
 import java.util.Date;
 
 public class Block { 
@@ -8,7 +8,7 @@ public class Block {
     private String data; 
     private int Nonce;
     private boolean workProven;
-    //private HashGenerator hashGenerator;
+    private HashGenerator hashGenerator;
     private int leadingZeros = 2;
     private String complexity = "000";
     private long timeStamp;
