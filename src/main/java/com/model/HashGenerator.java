@@ -4,7 +4,7 @@ import java.security.MessageDigest;
  
 public class HashGenerator {
 
-	public String generateHash(String input) 
+	public static String generateHash(String input) 
 	{ 
 		try { 
 			MessageDigest sha = MessageDigest.getInstance("SHA-256"); 
