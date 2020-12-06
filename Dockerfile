@@ -1,4 +1,4 @@
-FROM java:jdk-alpine
+FROM amd64/openjdk
 
 COPY ./target/blockchainemulator-0.0.1-SNAPSHOT.jar .
 
