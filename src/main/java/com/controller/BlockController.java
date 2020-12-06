@@ -16,19 +16,19 @@ import com.model.Block;
 import com.model.Blocks;
  
 @RestController
-@RequestMapping(path = "/blocks")
+@RequestMapping(path = "/api")
 public class BlockController 
 {
     @Autowired
     private BlockDAO blockDao;
      
-    @GetMapping(path="/", produces = "application/json")
+    @GetMapping(path="/blocks", produces = "application/json")
     public Blocks getBlocks() 
     {
         return blockDao.getAllBlocks();
     }
      
-    @PostMapping(path= "/", consumes = "application/json", produces = "application/json")
+    @PostMapping(path= "/add-block", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Object> addBlock(@RequestBody Block block) 
     {
 
