@@ -6,7 +6,7 @@
               <b-form-input
                 type="text"
                 v-model="data"
-                v-on:input="updateBlock()"
+                v-on:input="updateBlockByHash()"
               ></b-form-input>
             </b-input-group>  
       </b-card-text>
@@ -50,8 +50,8 @@ export default {
       this.$store.dispatch('mineBlock',{hash:this.$props.blockData.hash})
     },
 
-    updateBlock(){
-      this.$store.dispatch('updateBlock',{
+    updateBlockByHash(){
+      this.$store.dispatch('updateBlockByHash',{
          data: this.data,
          hash: this.$props.blockData.hash,
          })

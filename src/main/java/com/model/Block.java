@@ -1,17 +1,52 @@
-package model;
+package com.model;
+
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name="blocks")
 public class Block { 
  
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private long id;
+
+    @Column
     private String hash; 
+
+    @Column
     private String parentHash; 
+
+    @Column
     private String data; 
+
+    @Column
     private int Nonce;
+
+    @Column
     private boolean workProven;
+
+    @Transient
+    private HashGenerator hashGenerator;
+
+    @Transient
     private int leadingZeros = 3;
+
+    @Transient
     private String complexity = "000";
+
+    @Column
     private long timeStamp;
   
+    Block() {}
+
     // Constructor for the block 
     public Block(String data, 
                  String parentHash) 

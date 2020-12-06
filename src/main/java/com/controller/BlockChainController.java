@@ -2,45 +2,51 @@ package com.controller;
 
 import java.util.List;
 
-import com.service.BlockChainService;
+//import com.service.BlockChainService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+// import org.springframework.http.ResponseEntity;
+// import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+// import org.springframework.web.bind.annotation.PathVariable;
+// import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.PutMapping;
+// import org.springframework.web.bind.annotation.RequestBody;
+// import org.springframework.web.bind.annotation.RequestMapping;
+// import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.model.Block;
+import com.repository.BlockChainRepository;
 
-@Controller
-@RequestMapping("/api/")
+@RestController
+// @RequestMapping("/api/")
 public class BlockChainController {
 
-    BlockChainService blockChainService;
+    @Autowired
+    BlockChainRepository blockChainRepository;
 
-    @RequestMapping(value = "/api/Blocks/All/", method = RequestMethod.GET)
-    public ResponseEntity<?> retrieveFullBlockList() {
-        List<Block> blocks = blockChainService.findAllBlocks();
-        return ResponseEntity.ok(blocks);
+    @GetMapping(path = "/blocks/all", produces = "application/json")
+    public List<Block>  retrieveFullBlockList() {
+        return blockChainRepository.findAllBlocks();
     }
 
-    @RequestMapping(path = "/api/Blocks/{hash}", method = RequestMethod.GET)
-    public ResponseEntity<?> getBlockByHash(@PathVariable("hash") String hash) {
-        Block targetBlock = blockChainService.findBlockByHash(hash);
-        return ResponseEntity.ok(targetBlock);
-    }
+    // @GetMapping(path = "/blocks/{hash}")
+    // public ResponseEntity<?> getBlockByHash(@PathVariable("hash") String hash) {
+    //     Block targetBlock = blockChainService.findBlockByHash(hash);
+    //     return ResponseEntity.ok(targetBlock);
+    // }
 
-    @RequestMapping(path = "/api/Blocks/Save/", method = RequestMethod.POST)
-    public ResponseEntity<?> saveBlock(@RequestBody Block block) {
-        Block resBlock = blockChainService.saveBlock(block);
-        return ResponseEntity.ok(resBlock);
-    }
+    // @PostMapping(path = "/blocks/save")
+    // public ResponseEntity<?> saveBlock(@RequestBody Block block) {
+    //     Block resBlock = blockChainService.saveBlock(block);
+    //     return ResponseEntity.ok(resBlock);
+    // }
 
-    @RequestMapping(path = "/api/Blocks/Delete", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteBlock(@RequestBody Block block) {
-        Block delBlock = blockChainService.deleteBlock(block);
-        return ResponseEntity.ok(delBlock);
-    }
+    // @PutMapping(path = "/blocks/update/{hash}")
+    // public ResponseEntity<?> updateBlockByHash(@PathVariable("hash") String hash) {
+    //     Block updateBlockByHash = blockChainService.updateBlockByHash(hash);
+    //     return ResponseEntity.ok(updateBlockByHash);
+    // }
 }

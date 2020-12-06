@@ -69,7 +69,7 @@ export default new Vuex.Store({
         },
       ]);
     },
-    updateBlock({ commit }, { data, hash }) {
+    updateBlockByHash({ commit }, { data, hash }) {
       console.warn("data", data);
       console.warn("hash", hash);
 
@@ -79,7 +79,7 @@ export default new Vuex.Store({
         {
           data,
           previousHash: "0",
-          hash: "updateBlock",
+          hash: "updateBlockByHash",
           nonce: 0,
           workProven: false,
         },

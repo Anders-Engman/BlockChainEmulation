@@ -1,0 +1,7 @@
+-- CREATE TABLE blocks (
+--   id INTEGER NOT NULL AUTO_INCREMENT,
+--   hashData VARCHAR(255) NOT NULL,
+--   parentHash VARCHAR(255) NOT NULL,
+--   captionData VARCHAR(255),
+--   PRIMARY KEY (id)
+-- );
