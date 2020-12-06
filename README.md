@@ -12,7 +12,7 @@
 
 ```
 // clone the project
-git clone https://github.com/bbachi/vuejs-java-example.git
+git clone https://github.com/Anders-Engman/BlockChainEmulation.git
 
 // Run Vue on port 3000
 cd /src/main/client

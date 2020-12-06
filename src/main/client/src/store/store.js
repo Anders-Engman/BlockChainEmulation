@@ -1,5 +1,6 @@
 import Vuex from "vuex";
 import Vue from "vue";
+import { getAllBlocks } from "../services/BlockChainService.js";
 
 Vue.use(Vuex);
 
@@ -19,18 +20,10 @@ export default new Vuex.Store({
   },
 
   actions: {
-    loadBlocks({ commit }) {
-      // call load api route
+    async loadBlocks({ commit }) {
+      const response = await getAllBlocks();
 
-      commit("loadBlocks", [
-        {
-          data: "placeholder",
-          previousHash: "0",
-          hash: "osrrtme",
-          nonce: 0,
-          workProven: false,
-        },
-      ]);
+      commit("loadBlocks", response);
     },
     addBlock({ commit }, { data }) {
       console.warn("data", data);
