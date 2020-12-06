@@ -1,11 +1,30 @@
 package com.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "hashblocks")
 public class Block {
  
-    private String hash; 
-    private String parentHash; 
-    private String data; 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
+    @Column(name = "hashdata", columnDefinition = "VARCHAR(255)")
+    private String hash; 
+
+    @Column(name = "parenthash", columnDefinition = "VARCHAR(255)")
+    private String parentHash; 
+
+    @Column(name = "captiondata", columnDefinition = "VARCHAR(255)", nullable = true)
+    private String data;
+
+    Block() {}
 
     // Constructor for the block 
     public Block(String data, String parentHash) 
