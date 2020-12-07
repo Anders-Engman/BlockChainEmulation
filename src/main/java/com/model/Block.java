@@ -52,9 +52,12 @@ public class Block {
         this.hash=calculateHash();
         this.nonce = 0; 
         this.timeStamp = new Date().getTime();  
-
     }
  
+    public long getId() {
+      return this.id;
+    }
+
     //Getters and setters
     public void setHash(String hash) {
       this.hash = hash;
