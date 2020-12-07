@@ -24,10 +24,13 @@ public class Block {
     @Column(name = "parenthash", columnDefinition = "VARCHAR(255)")
     private String parentHash; 
 
-    @Column(name = "nonce", columnDefinition = "INT")
-    private int Nonce;
+    @Column(name = "captiondata", columnDefinition = "VARCHAR(255)", nullable = true)
+    private String data;
 
-    @Transient
+    @Column(name = "nonce", columnDefinition = "INT")
+    private int nonce;
+
+    @Column(name = "workproven", columnDefinition = "BIT")
     private boolean workProven;
 
     @Transient
@@ -36,11 +39,8 @@ public class Block {
     @Transient
     private String complexity = "000";
 
-    @Column(name = "timestamp", columnDefinition = "BIGINT")
+    @Column(name = "blocktime", columnDefinition = "LONG")
     private long timeStamp;
-
-    @Column(name = "captiondata", columnDefinition = "VARCHAR(255)", nullable = true)
-    private String data;
 
     Block() {}
 
@@ -50,22 +50,46 @@ public class Block {
         this.data = data; 
         this.parentHash = parentHash;
         this.hash=calculateHash();
-        this.Nonce = 0; 
+        this.nonce = 0; 
         this.timeStamp = new Date().getTime();  
 
     }
  
     //Getters and setters
     public void setHash(String hash) {
-        this.hash = hash;
-      }
+      this.hash = hash;
+    }
 
     public String getHash() {
       return this.hash;
     }
 
+    public void setParentHash(String parentHash) {
+      this.parentHash = parentHash;
+    }
+
     public String getParentHash() {
       return this.parentHash;
+    }
+
+    public void setData(String data) {
+      this.data = data;
+    }
+
+    public void setNonce(int nonce) {
+      this.nonce = nonce;
+    }
+
+    public int getNonce(){
+      return nonce;
+    }
+
+    public void setWorkProven(boolean workProven) {
+      this.workProven = workProven;
+    }
+
+    public boolean getWorkProven(){
+      return workProven;
     }
 
     public String getData() {
@@ -80,23 +104,21 @@ public class Block {
       return this.leadingZeros;
     }
 
-    public boolean getWorkProven(){
-      return workProven;
-    }
-
-    public int getNonce(){
-      return Nonce;
+    public void setTimeStamp(long timeStamp) {
+      this.timeStamp = timeStamp;
     }
 
     public long getTimeStamp(){
       return timeStamp;
     }
 
-    public void setComplexity(){
+    public void setComplexity(int leadingZeroes){
       String temp = "";
-      for(int i=0;i<leadingZeros;i++){
+
+      for (int i=0 ; i<leadingZeros ; i++) {
         temp +="0";
       }
+
       complexity = temp;
     }
     public String getComplexity(){
@@ -105,18 +127,20 @@ public class Block {
 
     // Function to calculate the hash 
     public String calculateHash(){
-      String calculatedHash = HashGenerator.generateHash(parentHash + timeStamp + Integer.toString(Nonce) + data);
+      String calculatedHash = HashGenerator.generateHash(parentHash + timeStamp + Integer.toString(nonce) + data);
       return calculatedHash;
      }
     //Function to mine the hash for proof of work 
     public String mineHash() 
     { 
-      Nonce = 0;
+      nonce = 0;
       workProven = false;
       String minedHash = this.calculateHash();  
-      while(!minedHash.substring(0,leadingZeros).equals(complexity)){
+
+      while (!minedHash.substring(0,leadingZeros).equals(complexity)) 
+      {
         minedHash = calculateHash();
-        Nonce++;
+        nonce++;
       }
       if (minedHash.substring(0,leadingZeros).equals(complexity)){
           workProven = true;
