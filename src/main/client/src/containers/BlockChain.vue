@@ -1,35 +1,38 @@
 <template>
-  <div>
-    <div v-for="(block, index) in blockDataList" :key="index">
-      <Block :blockName="index" :blockData="block"/>
+  <div class="blockChain"> 
+    <div class="blockWrapper" v-for="(block, index) in blocks" :key="index">
+      <div class="block">
+        <Block :blockName="index" :blockData="block"/>
+      </div>
     </div>
-    <AddBlock/>
   </div>
 </template>
 
 
 
 <script>
+
 import Block from "../components/Block.vue"
-import AddBlock from "../components/AddBlock.vue"
 
 export default {
   name: "BlockChain",
   components: {
-    Block,
-    AddBlock
+    Block
   },
+
   created() {
     this.$store.dispatch('loadBlocks')
   },
   computed: {
-    blockDataList () {
-      return this.$store.state.blockDataList
-    }
-  },
-  methods:{
+    blocks(){
+      console.warn(this.$store.getters.blockDataList)
+      return this.$store.getters.blockDataList
     },
+  },  
+  methods:{
+
   }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

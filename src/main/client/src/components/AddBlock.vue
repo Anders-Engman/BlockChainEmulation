@@ -1,17 +1,15 @@
 <template>
-  <div>
-    <b-card variant="light">
-        <b-card-text>
-          <b-input-group prepend="Data">
-              <b-form-input
-                type="text"
-                v-model="data"
-              ></b-form-input>
-            </b-input-group>     
-        </b-card-text>
-        <b-button type="submit" variant="outline-primary" @click="addBlock()">Add Block</b-button>
-    </b-card>
-  </div>
+  <b-card title="Add A BLOCK" variant="light">
+      <b-card-text>
+        <b-input-group prepend="Data">
+            <b-form-input
+              type="text"
+              v-model="data"
+            ></b-form-input>
+          </b-input-group>     
+      </b-card-text>
+      <b-button type="submit" variant="outline-primary" @click="addBlock()">ADD</b-button>
+  </b-card>
 </template>
   
 
@@ -26,7 +24,12 @@ export default {
   },
   methods:{
     addBlock(){
-      this.$store.dispatch('addBlock',{data:this.data})
+      const blockDataList = this.$store.state.blockDataList
+      const parentBlock = blockDataList[blockDataList.length-1];
+      const parentHash = parentBlock.hash 
+      const id = parentBlock.id + 1
+
+      this.$store.dispatch('addBlock',{data:this.data, parentHash:parentHash, id })
     }
   }
 }

@@ -144,20 +144,18 @@ public class Block {
     //Function to mine the hash for proof of work 
     public String mineHash() 
     { 
-      int tempNonce = 0;
+      nonce = 0;
       workProven = false;
       String minedHash = this.calculateHash();  
 
       while (!minedHash.substring(0,leadingZeros).equals(complexity)) 
       {
         minedHash = calculateHash();
-        tempNonce++;
+        nonce++;
       }
       if (minedHash.substring(0,leadingZeros).equals(complexity)){
           workProven = true;
       }
-
-      this.nonce = tempNonce;
 
       return minedHash;
     } 
