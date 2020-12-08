@@ -65,6 +65,7 @@ public class BlockController {
 
         block.setHash(blockDetails.mineHash());
         block.setWorkProven(true);
+        // block.setNonce(blockDetails.getNonce());
 
         final Block minedBlock = blockRepository.save(block);
 
