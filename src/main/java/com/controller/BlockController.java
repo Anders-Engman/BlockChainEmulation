@@ -39,7 +39,7 @@ public class BlockController {
         return blockRepository.save(block);
     }
 
-    @PutMapping("/update-block/{id}")
+    // @PutMapping("/update-block/{id}")
     public ResponseEntity <Block> updateBlock(@PathVariable(value = "id") long id,
         @Valid @RequestBody Block blockDetails) throws ResourceNotFoundException {
         Block block = blockRepository.findById(blockDetails.getId())
@@ -57,30 +57,47 @@ public class BlockController {
     @PutMapping("/mine-block/{id}")
     public ResponseEntity <Block> mineBlock(@PathVariable(value = "id") long id,
         @Valid @RequestBody Block blockDetails) throws ResourceNotFoundException {
+
         Block block = blockRepository.findById(blockDetails.getId())
             .orElseThrow(() -> new ResourceNotFoundException("Block not found for id #" + blockDetails.getId()));
+
+        String initialHash = block.getHash();
 
         block.setHash(blockDetails.mineHash());
         block.setWorkProven(true);
 
         final Block minedBlock = blockRepository.save(block);
+
+        List<Block> allBlocks = blockRepository.findAll();
+
+        int targetBlockIndex = findBlockByTimeStamp(allBlocks, minedBlock);
+
+        if (determineIfBlockHasChildBlock(allBlocks, initialHash)) {
+            updateChildBlocks(allBlocks, targetBlockIndex);
+        } else {
+            return ResponseEntity.ok(minedBlock);
+        }
+
         return ResponseEntity.ok(minedBlock);
     }
 
     @PutMapping("/chain-update/{id}")
     public ResponseEntity <Block> updateChain(@PathVariable(value = "id") long id,
          @Valid @RequestBody Block targBlock, String data) throws ResourceNotFoundException {
+
             List<Block> allBlocks = blockRepository.findAll();
 
             int targetBlockIndex = findBlockByTimeStamp(allBlocks, targBlock);
 
             targBlock.setData(data);
 
+            String initialHash = targBlock.getHash();
+
             targBlock.setHash(targBlock.calculateHash());
 
             updateBlock(targBlock.getId(), targBlock);
 
-                if (determineIfBlockHasChildBlock(allBlocks, targBlock)) {
+                if (determineIfBlockHasChildBlock(allBlocks, initialHash)) {
                     updateChildBlocks(allBlocks, targetBlockIndex);
                 } else {
                     return ResponseEntity.ok(targBlock);
@@ -99,10 +116,10 @@ public class BlockController {
             return -1;
         }
 
-        private boolean determineIfBlockHasChildBlock(List<Block> blockList, Block targBlock) {
+        private boolean determineIfBlockHasChildBlock(List<Block> blockList, String initialHash) {
 
             for (Block block : blockList) {
-                if (block.getParentHash().equals(targBlock.getHash())) {
+                if (block.getParentHash().equals(initialHash)) {
                     return true;
                 }
             }

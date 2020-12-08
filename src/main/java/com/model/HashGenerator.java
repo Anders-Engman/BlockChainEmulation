@@ -24,7 +24,7 @@ public class HashGenerator {
 				i++; 
 			} 
 
-			return hexHash.toString(); 
+			return hexHash.toString();
 		} 
 		catch (Exception e) { 
 			throw new RuntimeException(e); 
