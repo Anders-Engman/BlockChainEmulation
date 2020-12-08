@@ -44,12 +44,20 @@ public class Block {
 
     Block() {}
 
-    // Constructor for the block 
     public Block(String data, String parentHash) 
     { 
         this.data = data; 
         this.parentHash = parentHash;
         this.hash=calculateHash();
+        this.nonce = 0; 
+        this.timeStamp = new Date().getTime();  
+    }
+
+    public Block(String data, String parentHash, String hash) 
+    { 
+        this.data = data; 
+        this.parentHash = parentHash;
+        this.hash=hash;
         this.nonce = 0; 
         this.timeStamp = new Date().getTime();  
     }
