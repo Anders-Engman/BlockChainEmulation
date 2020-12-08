@@ -35,8 +35,8 @@ public class BlockController {
     }
 
     @PostMapping("/add-block")
-    public Block createBlock(@RequestBody Block block, String data, String parentHash) {
-        block = new Block(data, parentHash);
+    public Block createBlock(@RequestBody Block block) {
+        block.setHash(block.calculateHash());
         return blockRepository.save(block);
     }
 
