@@ -15,7 +15,7 @@ import javax.persistence.Transient;
 public class Block {
  
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    // @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @Column(name = "hashdata", columnDefinition = "VARCHAR(255)")
@@ -157,7 +157,7 @@ public class Block {
           workProven = true;
       }
 
-      // this.nonce = tempNonce;
+      this.nonce = tempNonce;
 
       return minedHash;
     } 
