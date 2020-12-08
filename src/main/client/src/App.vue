@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <BlockChain />
+    <BlockChainView />
   </div>
 </template>
 
@@ -8,12 +8,12 @@
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-import BlockChain from './containers/BlockChain.vue'
+import BlockChainView from './views/BlockChainView.vue'
 
 export default {
   name: 'App',
   components: {
-    BlockChain
+    BlockChainView
   }
 }
 </script>

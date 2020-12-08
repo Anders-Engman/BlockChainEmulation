@@ -1,40 +1,49 @@
-.header {
-    padding: 2%;
-    background-color: rgb(128, 0, 107);
-    font-size: 50px;
-    text-align: center;
-    width: 100%;
-    color: white;
- }
- 
- .footer {
-   padding: 2%;
-    background-color: red;
-    font-size: 50px;
-    text-align: center;
-    width: 100%
- }
- 
- .dashboard {
-   padding: 3% 1%;
- }
-
-h1 {
-  text-align: center;
+#app {
+display:flex;
+justify-content: center;
 }
 
-.display-board {
-  width: 100%;
-  background-color: rgba(0, 119, 128, 0.719);
-  padding: 5%;
+
+.view {
+  max-width:70%;
+  min-width:50%;
+  padding: 20px;
+  flex-wrap: wrap
 }
 
-.number {
-  color: red;
-  font-size: 75px;
-  text-align: center;
+.blockChain{
+  display: flex;
+  flex-wrap: wrap
 }
 
-.mrgnbtm {
-  margin-top: 20px;
+.addBlock{
+  width:100%
+}
+
+.blockWrapper {
+  margin-bottom: 30px;
+  flex: 1 0 50%;
+  justify-content: center;
+  display: flex;
+}
+
+.block {
+  width: 100%
+}
+
+.card-subtitle{
+  font-size:14px;
+}
+
+body {
+  background-color: lightblue;
+}
+
+@media only screen and (min-width: 1024px) {
+  .view {
+    max-width:60%;
+  }
+  .blockWrapper {
+    flex: 1 0 70%;
+  }
 }

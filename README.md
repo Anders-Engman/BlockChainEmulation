@@ -22,7 +22,8 @@ npm run serve
 // Run Java Code on 8080
 mvn clean install
 java -jar target/blockchainemulator-0.0.1-SNAPSHOT.jar
-```
+
 //Spin up docker container
 docker build -t blockchain_emulation .
 docker run -p 8080:8080 blockchain_emulation
+```

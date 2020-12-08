@@ -1,8 +1,15 @@
 import Vuex from "vuex";
 import Vue from "vue";
-import { getAllBlocks } from "../services/BlockChainService.js";
+import {
+  getAllBlocks,
+  createBlock,
+  mineBlock,
+  updateBlock,
+} from "../services/BlockChainService.js";
 
 Vue.use(Vuex);
+
+const successStatus = 200 || 201;
 
 export default new Vuex.Store({
   state: {
@@ -10,7 +17,9 @@ export default new Vuex.Store({
   },
 
   getters: {
-    // Here we will create a getter
+    blockDataList: (state) => {
+      return state.blockDataList;
+    },
   },
 
   mutations: {
@@ -23,61 +32,57 @@ export default new Vuex.Store({
     async loadBlocks({ commit }) {
       const response = await getAllBlocks();
 
-      commit("loadBlocks", response);
+      if (response.status === successStatus) {
+        commit("loadBlocks", response.body);
+        console.log(response.body);
+      } else {
+        console.warn(response);
+      }
     },
-    addBlock({ commit }, { data }) {
-      console.warn("data", data);
+    async addBlock({ commit }, { data, parentHash, id }) {
+      const success = await createBlock({ data, parentHash, id });
 
-      // make create block api call
+      if (success) {
+        const response = await getAllBlocks();
 
-      commit("loadBlocks", [
-        {
-          data: "placeholder",
-          previousHash: "0",
-          hash: "osrrtme",
-          nonce: 0,
-          workProven: false,
-        },
-        {
-          data,
-          previousHash: "0",
-          hash: "addBlock",
-          nonce: 0,
-          workProven: false,
-        },
-      ]);
+        if (response.status === successStatus) {
+          commit("loadBlocks", response.body);
+        } else {
+          console.warn(response);
+        }
+      } else {
+        console.warn("Error");
+      }
     },
-    mineBlock({ commit }, { hash }) {
-      console.warn("hash", hash);
+    async mineBlock({ commit }, { id, parentHash, hash, data }) {
+      const success = await mineBlock({ id, parentHash, hash, data });
 
-      // call mine api route
+      if (success) {
+        const response = await getAllBlocks();
 
-      commit("loadBlocks", [
-        {
-          data: "placeholder",
-          previousHash: "0",
-          hash: "mineBlock",
-          nonce: 0,
-          workProven: true,
-        },
-      ]);
+        if (response.status === successStatus) {
+          commit("loadBlocks", response.body);
+        } else {
+          console.warn(response);
+        }
+      } else {
+        console.warn("Error");
+      }
     },
-    updateBlock({ commit }, { data, hash }) {
-      console.warn("data", data);
-      console.warn("hash", hash);
+    async updateBlock({ commit }, { data, id, hash, parentHash }) {
+      const success = await updateBlock({ data, id, hash, parentHash });
 
-      // call update api route
+      if (success) {
+        const response = await getAllBlocks();
 
-      commit("loadBlocks", [
-        {
-          data,
-          previousHash: "0",
-          hash: "updateBlock",
-          nonce: 0,
-          workProven: false,
-        },
-      ]);
+        if (response.status === successStatus) {
+          commit("loadBlocks", response.body);
+        } else {
+          console.warn(response);
+        }
+      } else {
+        console.warn("Error");
+      }
     },
   },
-  // Here we will create Larry
 });
