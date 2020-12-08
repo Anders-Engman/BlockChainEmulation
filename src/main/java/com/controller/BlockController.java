@@ -35,7 +35,8 @@ public class BlockController {
     }
 
     @PostMapping("/add-block")
-    public Block createBlock(@RequestBody Block block) {
+    public Block createBlock(@RequestBody Block block, String data, String parentHash) {
+        block = new Block(data, parentHash);
         return blockRepository.save(block);
     }
 
@@ -65,7 +66,7 @@ public class BlockController {
 
         block.setHash(blockDetails.mineHash());
         block.setWorkProven(true);
-        block.setNonce(blockDetails.getNonce());
+        // block.setNonce(blockDetails.getNonce());
 
         final Block minedBlock = blockRepository.save(block);
 
